@@ -2,11 +2,21 @@ package br.com.kotrix.cursomc.domain;
 
 import java.io.Serializable;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+
 // Serializable serve para converter os Objetos da Classe para uma sequencia de bytes
+@Entity
 public class Categoria implements Serializable{
 	private static final long serialVersionUID = 1L;
 	//Ao Adicionar Serializable, você tem que implementar o inicio da sequencia logica
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	//IDENTITY da certo com varios bancos de dados, inclusive H2
 	private Integer id;
 	private String nome;
 	
