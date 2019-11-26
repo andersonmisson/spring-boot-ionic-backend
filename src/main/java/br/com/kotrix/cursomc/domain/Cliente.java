@@ -19,9 +19,9 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import br.com.kotrix.cursomc.domain.enums.TipoCliente;
 
 @Entity
-public class Cliente  implements Serializable {
+public class Cliente implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
@@ -30,21 +30,23 @@ public class Cliente  implements Serializable {
 	private String cpfOuCnpj;
 	// Mudei de TipoCliente para Integer
 	private Integer tipo;
-	
+
 	// LIST é para listar as Coleções
 	@JsonManagedReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Endereco> enderecos = new ArrayList<>();
-	
-		
+
 	// SET não aceita repetições nas COLEÇÔES
 	@ElementCollection
 	@CollectionTable(name = "TELEFONE")
 	private Set<String> telefones = new HashSet<>();
-	
+
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+
 	// Construtor Vazio
 	public Cliente() {
-		
+
 	}
 
 	// Construtor sem coleção (LIST, SET)
@@ -57,9 +59,8 @@ public class Cliente  implements Serializable {
 		this.tipo = tipo.getCod();
 	}
 
-	
 	// GETTERS e SETTERS
-	
+
 	public Integer getId() {
 		return id;
 	}
@@ -116,6 +117,14 @@ public class Cliente  implements Serializable {
 		this.telefones = telefones;
 	}
 
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -140,6 +149,4 @@ public class Cliente  implements Serializable {
 			return false;
 		return true;
 	}
-	
-		
 }
