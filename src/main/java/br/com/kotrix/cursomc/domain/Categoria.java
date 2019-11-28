@@ -12,26 +12,21 @@ import javax.persistence.ManyToMany;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-// Serializable serve para converter os Objetos da Classe para uma sequencia de bytes
+
 @Entity
 public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
-	// Ao Adicionar Serializable, você tem que implementar o inicio da sequencia
-	// logica
-
+	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	// IDENTITY da certo com varios bancos de dados, inclusive H2
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
 	private String nome;
-
+	
 	@JsonManagedReference
 	@ManyToMany(mappedBy="categorias")
 	private List<Produto> produtos = new ArrayList<>();
-
-	// Construtor Vazio
+	
 	public Categoria() {
-
 	}
 
 	public Categoria(Integer id, String nome) {
@@ -88,5 +83,4 @@ public class Categoria implements Serializable {
 			return false;
 		return true;
 	}
-
 }

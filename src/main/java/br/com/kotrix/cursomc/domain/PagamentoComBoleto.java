@@ -3,22 +3,17 @@ package br.com.kotrix.cursomc.domain;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import br.com.kotrix.cursomc.domain.enums.EstadoPagamento;
 
 @Entity
-public class PagamentoComBoleto extends Pagamento{
+public class PagamentoComBoleto extends Pagamento {
 	private static final long serialVersionUID = 1L;
-	
-	@Temporal(TemporalType.TIMESTAMP)
+
 	private Date dataVencimento;
-	@Temporal(TemporalType.TIMESTAMP)
 	private Date dataPagamento;
-	
+
 	public PagamentoComBoleto() {
-		
 	}
 
 	public PagamentoComBoleto(Integer id, EstadoPagamento estado, Pedido pedido, Date dataVencimento, Date dataPagamento) {
@@ -41,8 +36,6 @@ public class PagamentoComBoleto extends Pagamento{
 
 	public void setDataPagamento(Date dataPagamento) {
 		this.dataPagamento = dataPagamento;
-	}
+	}	
 	
-	
-
 }
