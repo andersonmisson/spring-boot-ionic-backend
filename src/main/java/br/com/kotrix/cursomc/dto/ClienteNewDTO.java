@@ -2,21 +2,45 @@ package br.com.kotrix.cursomc.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+
+import org.hibernate.validator.constraints.Length;
+
+import br.com.kotrix.cursomc.services.validation.ClienteInsert;
+
+@ClienteInsert
 public class ClienteNewDTO implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+	@NotEmpty(message = "Prenchimento Obrigatório")
+	@Length(min = 5, max = 120, message = "O tamanho deve ser entre 5 e 120 caracteres")
 	private String nome;
+
+	@NotEmpty(message = "Preenchimento Obrigatório")
+	@Email(message = "Email inválido")
 	private String email;
+
+	@NotEmpty(message = "Prenchimento Obrigatório")
 	private String cpfOuCnpj;
+
 	private Integer tipo;
 
+	@NotEmpty(message = "Prenchimento Obrigatório")
 	private String logradouro;
+
 	private String numero;
+
 	private String complemento;
+
 	private String bairro;
+
+	@NotEmpty(message = "Prenchimento Obrigatório")
 	private String cep;
 
+	@NotEmpty(message = "Prenchimento Obrigatório")
 	private String telefone1;
+
 	private String telefone2;
 	private String telefone3;
 
