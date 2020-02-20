@@ -15,16 +15,18 @@ import org.springframework.stereotype.Service;
 
 import br.com.kotrix.cursomc.services.exception.DataIntegrityException;
 import br.com.kotrix.cursomc.services.exception.ObjectNotFoundException;
-import br.com.kotrix.cursomc.domain.Categoria;
 import br.com.kotrix.cursomc.domain.Cidade;
 import br.com.kotrix.cursomc.domain.Cliente;
 import br.com.kotrix.cursomc.domain.Endereco;
+import br.com.kotrix.cursomc.domain.enums.Perfil;
 import br.com.kotrix.cursomc.domain.enums.TipoCliente;
 import br.com.kotrix.cursomc.dto.ClienteDTO;
 import br.com.kotrix.cursomc.dto.ClienteNewDTO;
 import br.com.kotrix.cursomc.repositories.CidadeRepository;
 import br.com.kotrix.cursomc.repositories.ClienteRepository;
 import br.com.kotrix.cursomc.repositories.EnderecoRepository;
+import br.com.kotrix.cursomc.security.UserSS;
+import br.com.kotrix.cursomc.services.exception.AuthorizationException;
 
 @Service
 public class ClienteService {
@@ -42,6 +44,12 @@ public class ClienteService {
 	private EnderecoRepository enderecoRepository;
 
 	public Cliente find(Integer id) {
+		
+		UserSS user = UserService.authenticated();
+		if(user==null || !user.hasRole(Perfil.ADMIN) && !id.equals(user.getId())) {
+			throw new AuthorizationException("Acesso negado");
+		}
+		
 		Optional<Cliente> obj = repo.findById(id);
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName()));
