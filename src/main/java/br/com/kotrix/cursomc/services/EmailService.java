@@ -4,6 +4,7 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.mail.SimpleMailMessage;
 
+import br.com.kotrix.cursomc.domain.Cliente;
 import br.com.kotrix.cursomc.domain.Pedido;
 
 public interface EmailService {
@@ -15,5 +16,7 @@ public interface EmailService {
 	void sendOrderConfirmationHtmlEmail(Pedido obj);
 	// MIMEMESSAGE é para mandar um email tipo HTML
 	void sendHtmlEmail(MimeMessage msg);
+	
+	void sendNewPasswordEmail(Cliente cliente, String newPass);
 
 }
